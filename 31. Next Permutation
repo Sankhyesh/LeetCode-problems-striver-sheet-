@@ -1,0 +1,37 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+       int n = nums.size(), firstBreakdown, secondBreakdown;
+        
+//         first step:
+        for(firstBreakdown = n - 2; firstBreakdown >= 0; firstBreakdown--){
+//             we are iterating from 2nd last element
+//             and try to find a brreakdown
+//         step 2:
+            if(nums[firstBreakdown] < nums[firstBreakdown + 1]){
+                break;
+            }
+        }
+        
+//         if i dont found any breakdown then
+        // just reverse the element
+        if(firstBreakdown < 0){
+            reverse(nums.begin(), nums.end());
+        }else{
+            
+            // find the second breakdown
+            for(secondBreakdown = n-1; secondBreakdown > firstBreakdown; secondBreakdown--){
+               
+                if(nums[secondBreakdown] > nums[firstBreakdown]){
+                    break;
+                }
+            }
+            
+            // step 3: 
+            swap(nums[firstBreakdown], nums[secondBreakdown]);
+            //reverse from firstbreakdown onward to last
+            reverse(nums.begin() + firstBreakdown + 1, nums.end());
+        }
+    
+    }
+};
