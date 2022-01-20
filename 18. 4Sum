@@ -1,0 +1,60 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>> res;
+        if(nums.empty()){
+            return res;
+        }
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i<n; i++){
+            
+            int t3 = target - nums[i];
+            for(int j = i+1; j<n; j++){
+                
+                int f = j+1;
+                int e = n-1;
+                int t2 = t3 - nums[j];
+            
+                while(f<e){
+                    
+                    int twosum = nums[f] + nums[e];
+                    if(twosum < t2){
+                        f++;
+                    }else if(twosum > t2){
+                        e--;
+                    }else{
+                        
+                        vector<int> qaud(4, 0);
+                        qaud[0] = nums[i];
+                        qaud[1] = nums[j];
+                        qaud[2] = nums[f];
+                        qaud[3] = nums[e];
+                        
+                        res.push_back(qaud);
+                        
+                        // duplicates mus tbe croassed;
+                        while(f<e && (nums[f] == qaud[2])){
+                            f++;
+                        }
+                        while(f<e && (nums[e] == qaud[3])){
+                            e--;
+                        } 
+                    }
+                }
+                
+                while(j+1 < n && nums[j+1] == nums[j]){
+                    j++;
+                }
+                
+            }
+            
+            
+            while(i+1 < n && nums[i+1] == nums[i]){
+                    i++;
+                }
+            
+        }
+        return res; 
+    }
+};
