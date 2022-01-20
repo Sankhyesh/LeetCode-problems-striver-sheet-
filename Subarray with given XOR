@@ -1,0 +1,20 @@
+int Solution::solve(vector<int> &A, int B) {
+    
+    map<int, int> mp;
+    int count = 0;
+    int xr = 0;
+
+    for(auto i: A){
+        xr = xr^i;// travering array with Xor
+        if(xr == B){
+            count++;
+        }
+        if(mp.find(xr^B) != mp.end()){// check if the xor result till now and required XOR ==> xor's avialable in the hash map
+            count += mp[xr^B];
+        }
+
+        mp[xr]+=1;
+    }
+
+    return count;
+}
