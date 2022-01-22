@@ -48,45 +48,68 @@
 
 
 
+// class Solution {
+// public:
+//     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+//         ListNode *merged = new ListNode;
+//         ListNode *temp = new ListNode;
+        
+//         // merged is equal to temp
+//         merged = temp;
+//         while(l1 != NULL && l2 != NULL){
+//             if(l1->val <= l2->val){
+//                 temp->next = l1;
+//                 l1 = l1->next;
+//             }else{
+//                 temp->next = l2;
+//                 l2 = l2->next;
+//             }
+//             temp = temp->next;
+//         }
+        
+//         //any remaining nodes 
+//         while(l1 != NULL){
+//             temp->next = l1;
+//             l1 = l1->next;
+//             temp = temp->next;
+//         }
+        
+//         while(l2 != NULL){
+//             temp->next = l2;
+//             l2 = l2->next;
+//             temp = temp->next;
+//         }
+        
+//         return merged->next;
+        
+//         }
+// };
+
+
+// optimal solution :: without extra space 
+
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode *merged = new ListNode;
-        ListNode *temp = new ListNode;
+        if(l1 == NULL)  return l2;
+        if(l2 == NULL) return l1;
         
-        // merged is equal to temp
-        merged = temp;
+        if(l1-> val > l2 -> val)std::swap(l1,l2);
+        
+        ListNode *res = l1;
+        
         while(l1 != NULL && l2 != NULL){
-            if(l1->val <= l2->val){
-                temp->next = l1;
+            ListNode *temp = NULL;
+            while(l1 != NULL && l1->val <= l2->val){
+                temp = l1;
                 l1 = l1->next;
-            }else{
-                temp->next = l2;
-                l2 = l2->next;
             }
-            temp = temp->next;
-        }
-        
-        //any remaining nodes 
-        while(l1 != NULL){
-            temp->next = l1;
-            l1 = l1->next;
-            temp = temp->next;
-        }
-        
-        while(l2 != NULL){
             temp->next = l2;
-            l2 = l2->next;
-            temp = temp->next;
+            std::swap(l1,l2);
         }
-        
-        return merged->next;
-        
+        return res;
         }
 };
-
-
-
 
 
 
