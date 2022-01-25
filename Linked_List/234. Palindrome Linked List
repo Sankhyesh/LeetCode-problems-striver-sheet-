@@ -1,0 +1,107 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+// check for error 
+// class Solution {
+// public:
+//     bool isPalindrome(ListNode* head) {
+//         ListNode* slow=head, * fast=head, *pre, *curr, *nex;
+//         int slowCount = 1;
+//         if(head->next == NULL){
+//             return true;
+//         }
+        
+        
+//         while(fast->next != NULL && fast->next->next != NULL){
+//             fast = fast->next->next;
+//             slow = slow->next;
+//             slowCount +=1;
+//         }
+//         // if(slow->next->next == NULL){
+//         //     if(head->val == slow->next->val){
+//         //         return true;
+//         //     }
+//         //     return false;
+//         // }
+//         int i = 1;
+//         if(slowCount%2 == 0){
+//             i = 1;
+//         }else{
+//             i = 2;
+//         }
+//         pre = slow;
+//         curr = slow->next;
+//         nex = curr->next;
+//         for(i ; i<slowCount; i++){
+//             curr->next = nex->next;
+//             nex->next = pre->next;
+//             pre->next = nex;
+//             nex = curr->next;
+//         }
+        
+//         ListNode *one = head, *two = slow->next;
+//         while(two!=NULL){
+//             if(one->val != two->val){
+//                 return false;
+//             }
+//             one = one->next;
+//             two = two->next;
+//         }
+//         return true;
+        
+//     }
+// };
+
+
+
+// """ Actual Solution :: 
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head == NULL || head->next == NULL){
+            return true;
+        }
+        
+        ListNode *slow = head, *fast = head;
+        while(fast->next != NULL && fast->next->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        slow->next = reverseList(slow->next);
+        slow = slow->next;
+        
+        while(slow!=NULL){
+            if(head->val != slow->val){
+                return false;
+            }
+            slow=slow->next;
+            head=head->next;
+        }
+        return true;
+        
+    }
+    
+    ListNode* reverseList(ListNode* head){
+        ListNode *pre = NULL;
+        ListNode *nex = NULL;
+        while(head != NULL){
+            nex = head->next;
+            head->next = pre;
+            pre = head;
+            head = nex;
+        }
+        
+        return pre;
+    }
+    
+    
+};
