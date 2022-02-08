@@ -3,36 +3,62 @@
 using namespace std; 
 
  // } Driver Code Ends
+// class Solution
+// {
+// public:
+//     vector<int> res;
+//     void findSum(int i, vector<int> arr, vector<int> ds, int n){
+        
+//         if(i == n){
+//             int sum = 0;
+//             for (auto i : ds){
+//                 sum += i;        
+//             }
+//             res.push_back(sum);
+//             return;
+//         } 
+        
+//         ds.push_back(arr[i]);
+        
+//         findSum(i+1, arr, ds, n);
+        
+//         ds.pop_back();
+        
+//         findSum(i+1, arr, ds, n);
+//     }
+//     vector<int> subsetSums(vector<int> arr, int N)
+//     {
+//         vector<int> ds;
+//         findSum(0,arr, ds,N);
+//         return res;
+//     }
+// };
+
+/// optimal soution 
 class Solution
 {
 public:
-    vector<int> res;
-    void findSum(int i, vector<int> arr, vector<int> ds, int n){
+    void findSum(int i, vector<int> &arr, int sum, vector<int> &ss, int n){
         
         if(i == n){
-            int sum = 0;
-            for (auto i : ds){
-                sum += i;        
-            }
-            res.push_back(sum);
+            ss.push_back(sum);
             return;
         } 
         
-        ds.push_back(arr[i]);
+        sum += arr[i];
+        findSum(i+1, arr,sum, ss, n);
         
-        findSum(i+1, arr, ds, n);
-        
-        ds.pop_back();
-        
-        findSum(i+1, arr, ds, n);
+        sum -= arr[i];
+        findSum(i+1, arr, sum, ss, n);
     }
     vector<int> subsetSums(vector<int> arr, int N)
     {
-        vector<int> ds;
-        findSum(0,arr, ds,N);
-        return res;
+        vector<int> subsetsum;
+        findSum(0, arr, 0, subsetsum, N);
+        return subsetsum;
     }
 };
+
 
 // { Driver Code Starts.
 int main()
