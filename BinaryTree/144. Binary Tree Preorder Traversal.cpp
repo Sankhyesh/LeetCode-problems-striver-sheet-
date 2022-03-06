@@ -9,19 +9,55 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+// REcursive Function
+// class Solution {
+// public:
+//     void preorder( TreeNode* root, vector<int> &res){
+//         if(root != NULL){
+//             res.push_back(root->val);
+//             preorder(root->left, res);
+//             preorder(root->right, res);
+//         }
+//     }
+    
+//     vector<int> preorderTraversal(TreeNode* root) { 
+//         vector<int> res;
+//         preorder(root, res);
+//         return res;
+//     }
+// };
+
+// iterative method
 class Solution {
 public:
-    void preorder( TreeNode* root, vector<int> &res){
-        if(root != NULL){
-            res.push_back(root->val);
-            preorder(root->left, res);
-            preorder(root->right, res);
-        }
-    }
     
     vector<int> preorderTraversal(TreeNode* root) { 
         vector<int> res;
-        preorder(root, res);
+        if(!root){
+            return res;
+        }
+        stack<TreeNode *> st;
+        st.push(root);
+        TreeNode* node = root;
+        while(!st.empty()){
+            
+            node = st.top();
+            st.pop();
+            res.push_back(node->val);
+            
+            if(node ->right){
+                // node = node ->right;
+                st.push(node -> right);
+            }
+            
+            if(node->left){
+                // node = node->left;
+                st.push(node->left);
+            }
+            
+            
+        }
         return res;
     }
 };
